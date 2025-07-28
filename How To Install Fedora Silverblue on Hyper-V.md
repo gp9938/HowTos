@@ -1,7 +1,9 @@
 
+# Overview
 Fedora Silverblue is only available to install via a Hybrid ISO image which is not bootable by Hyper-V or VirtualBox.  Hybrid ISOs are designed to be burned onto USB drives for subsequent booting.  The solution is user Rufus to burn a virtual hard disk (VHD or VHDX) with the Silverblue ISO and then make that the boot disk of a new Hyper-V VM.  The Hyper-V VM is also created with a secondary blank virtual disk.
 
 When the VM boots for the first time, it will kick off the Silverblue installer which you need to click through.  That's it.
+# Steps
 
 The steps below are the specifics needed to get this to happen:
 
