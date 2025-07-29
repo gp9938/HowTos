@@ -25,6 +25,7 @@ The steps below are the specifics needed to get this to happen:
 	1. Use a type 2 VM
 	2. Set the  boot disk as VHDX
 	3. Give the VM a blank VHDX of at least 127 GB (Hyper-V can do this creation itself)
+	4. Be sure to add a network to the VM so it has internet access.  HOWTO for this TBD.
 6. Disable Secure Boot for the VM
 7. Enable Trusted Platform Module
 8. Enable Guest Services in Hyper-V
