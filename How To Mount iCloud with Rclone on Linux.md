@@ -1,11 +1,14 @@
+How To Mount iCloud with Rclone on Linux
+=
+`rclone` lets you mount you iCloud drive onto Linux and this is a quick guide of hgow to get this going since there are quirks to work around.
 
-Apple has blocked the `rclone` built-in authentication mechanism from working.  Rclone developers have been able to work around this but it is best to work around this.
+Apple has blocked the `rclone` built-in authentication mechanism from working.  `rclone` developers have been able to work around this but it is best to work around this.
 
 After installing `rclone`, instead of using the interactive `rclone config` command where you are prompted through the setup that then uses the traditional authorization mechanism, take the following steps.
 
 
 ### Initial `rclone` Configuration
-1. Login into `icloud.com` from your browser, making sure to **Trust** the browser when asked.   This is important because it will give you a 30 session key instead of a 30 minute session key.
+1. Login into `icloud.com` from your browser, making sure to **Trust** the browser when asked.   This is important because it will give you a **30 day session key** instead of a 30 minute session key.
 2. Go to the `Drive` item displayed on the icon tray (going to `Drive` may not be strictly necessary)
 3. Bring up your browser's Developer Tools (typically `CTRL-SHIFT-I`) and go to the `Network` tab shown on the top bar.
 4. Refresh/reload (`F5`) the iCloud page to bring the `Network` tab up-to-date.
@@ -14,8 +17,7 @@ After installing `rclone`, instead of using the interactive `rclone config` comm
 7. Select the `Headers` tab of the sub-window and find the area where `Request-Headers` are shown 
 8. Find the `Cookie` property, which represents all the cookies on that request and copy the (long) value.  This value (without quotes) will become the value of `cookies = `  in the `rclone` configuration file.
 9. Go to the `Cookies` tab of the sub-window and find the cookie named `X-APPLE-WEBAUTH-HSA-TRUST` and copy the value.  This value (without quotes) will become the value of the `trust_token = `
-10. Finally 
-11. Now create or update the `rclone` config file by adding in your entry to file `$HOME/.config/rclone/rclone.conf`
+10. Now create or update the `rclone` config file by adding in your entry to file `$HOME/.config/rclone/rclone.conf`
 ```
 [<name-of-remote>]
 type = iclouddrive
