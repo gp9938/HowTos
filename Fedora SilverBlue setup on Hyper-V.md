@@ -1,3 +1,6 @@
+**This document is deprecated**
+==
+
 1. Create a virtual switch (unless it exists) in Hyper-V with "External network:" access to the external NIC for the host machine    
 2. Download Fedora SilverBlue ISO
 3. Create Hyper-V Generation 2 virtual machine
@@ -9,7 +12,7 @@
 5. The new Virutal Machine Connection window should have "Start" button in the middle
 6. Click on the start button and prepare to hit down-arrow to select the last entry (probably the third entry), UEFI Firmware Settings
 7. From that menu select Install Fedora with Basic Video Driver
-    1. Without that selection, there will be no GUI and no way to fully setup the machine -- Silverblue does _not_ suppoort Ignition
+    1. Without that selection, there will be no GUI and no way to fully setup the machine -- Silverblue does _not_ support Ignition
 8. Edit /etc/default grub and add `GRUB_CMDLINE_LINUX_DEFAULT="quiet splash video-hyperv_fb :3840x2160"`
 9. Run grub2-mkconfig -o /etc/grub2-efi.cfg
 10. Shutdown the VM

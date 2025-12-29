@@ -25,12 +25,39 @@ The steps below are the specifics needed to get this to happen:
 	1. Use a type 2 VM
 	2. Set the  boot disk as VHDX
 	3. Give the VM a blank VHDX of at least 127 GB (Hyper-V can do this creation itself)
-	4. Be sure to add a network to the VM so it has internet access.  HOWTO for this TBD.
-6. **Disable Secure Boot for the VM**
-7. Enable Trusted Platform Module
-8. Enable Guest Services in Hyper-V
-9. Connect to the VM
-10. Start the VM and wait for the Fedora installer to start
-11. Install Fedora
-12. Done.
+	4. Be sure to setup the VM to use a Hyper-V Virtual Switch that has access to the Internet (an external virtual switch).   To create one:
+		1. Go to the Hyper-V righthand-side pane titled  `Actions` and select item `Virtual Switch Manager...`. 
+		2. The sub-window that pops up will have `New virtual network switch` selected in the lefthand-side pane.  On the righthand-side, select `External` and then push the button `Create Virtual Switch`.
+		3. Now name the new virtual switch something meaningful like `ExternalVirtualSwitch` and select `Connection type` with `External network:` and select an **active** network interface for your host.
+		4. Ensure the `Allow management operating system to share this network adapter` is checked unless you know it does not need to be checked.
+		5. Click the `OK` button
+	5. Click `OK`
+6. Update the new Hyper-V machine by selecting `Settings...` for it.
+	1. Under `Security` **uncheck** `Enable Secure Boot` unless you know how to set this up.  Without checking this, Hyper-V will not be able to start the boot process for your machine.
+	2.  Also under Security, check `Enable Trusted Platform Module` if you prefer -- this may not be necessary for your use case.
+	3. Under `Integration Services` optionally enable  `Guest Services` in Hyper-V so that you can more easily share resources with your VM. 
+	4. Click the `OK` button
+7. Connect to the VM
+8. Start the VM and wait for the Fedora installer to start
+9. Install Fedora
+10. Done.
 
+## Optional Display Setup
+To unlock more display options for your VM you can take the following steps:
+1. Start a `pwsh` admin shell, 
+2. Run these commands making sure to update the resolution to the appropriate one for your own monitor (4k monitor resolution shown):
+```
+set-vmvideo <hyper-v-vm-name> -horizontalresolution:3840 - \ verticalresolution:2160 -resolutiontype single
+set-vm <hyper-v-vm-name> -EnhancedSessionTransportType HVSocket
+```
+
+# To Work Around a Blank Screen
+If the boot seems to start but the install screen isn't being shown, this can be a display incompatibility.  You can work around this by forcing the installer to use the `Basic Video Driver`
+
+1. Before starting the new virtual machine, connect to it  using Virtual Machine Connection in Hyper-V
+2. The new Virtual Machine Connection window should have a  `Start` button in the center
+3. Click on the `Start` button and prepare to hit down-arrow to select the last entry (probably the third entry) in the displayed text menu titled `UEFI Firmware Settings`
+4. Next, select `Install Fedora with Basic Video Driver`.  This step will force the installer to avoid the full video driver that is not fully working.
+5. You will now get a simple Linux command line where you will edit `/etc/default grub`.   To `/tec/default/grub`,  add `GRUB_CMDLINE_LINUX_DEFAULT="quiet splash video-hyperv_fb :3840x2160`. Be sure to update the resolution to the appropriate one for your monitor.
+6. Save the file and run the command `grub2-mkconfig -o /etc/grub2-efi.cfg`
+7. `reboot` the machine
