@@ -1,3 +1,6 @@
+How To Setup A Virtual Switch on Hyper-V
+=
+
 Hyper-V virtual switches allow you to create a network for your Hyper-V VMs.  My only use right now is to allow direct IP access to my VMs, mostly via ssh.
 
 1. From the Hyper-V Manager, go to the Action pulldown menu and select Virtual Switch Manager...
