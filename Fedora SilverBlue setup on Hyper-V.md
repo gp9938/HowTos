@@ -19,4 +19,4 @@
 11. From a pwsh admin shell, run `set-vmvideo <hyper-v-vm-name> -horizontalresolution:3840 -verticalresolution:2160 -resolutiontype single`
 12. And: `set-vm <hyper-v-vm-name> -EnhancedSessionTransportType HVSocket`    
 13. Upon reboot, the "Displays" section of "Settings" will allow you choose from a variety of resolutions within 3840x2160 res
-14. Enable proper mouse pointer tracking in Hyper-V client: When in the os -- as root, edit /etc/environment MUTTER_DEBUG_FORCE_KMS_MODE=simple
+14. Enable proper mouse pointer tracking in Hyper-V client: When in the os -- as root, edit /etc/environment MUTTER_DEBUG_FORCE_KMS_MODE=simple[[]]

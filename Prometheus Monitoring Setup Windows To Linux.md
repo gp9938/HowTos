@@ -86,5 +86,5 @@ scrape_configs:
           - "outlook.com"
 ```
 
-Restart prometheus on Windows and go to http://localhost:9090 again to see the new data with the `dns_exporter`.
+Restart `prometheus` on Windows and go to http://localhost:9090 again to see the new data with the `dns_exporter`.
 
